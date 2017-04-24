@@ -4,34 +4,26 @@
 
 #pragma once
 
-#include <string>
 #include <map>
 #include <stdexcept>
-
-class CheckListTask;
-
-namespace CheckListTypes {
-
-using IDType = int;
-using dataType = std::map<IDType, CheckListTask>;
-using string = std::string;
-
-} // namespace CheckListTypes
+#include <string>
 
 class CheckListTask {
 public:
-    // Using `std::string` below by copy constructor is for accepting both variables and string literals
-    CheckListTask(const CheckListTypes::string caption = "", const bool checked = false) :
-        m_checked(checked), m_caption(caption) {}
+    using string = std::string;
+
+    // Using `string` below by copy constructor is for accepting both variables and string literals
+    CheckListTask(const string caption = "", const bool checked = false) :
+    m_checked(checked), m_caption(caption) {}
     ~CheckListTask() = default;
 
     bool checked() const { return bool(*this); }
 
-    const CheckListTypes::string& caption() const { return this->m_caption; }
+    const string& caption() const { return this->m_caption; }
 
     void setChecked(const bool checked) { this->m_checked = checked; }
 
-    void setCaption(const CheckListTypes::string caption) { this->m_caption = caption; }
+    void setCaption(const string caption) { this->m_caption = caption; }
 
     // TODO: `setAttr(string, bool)`, `getAttr(string&, bool&)`
 
@@ -47,7 +39,7 @@ public:
 
 private:
     bool m_checked;
-    CheckListTypes::string m_caption;
+    string m_caption;
     // TODO: due date
 };
 
@@ -56,31 +48,34 @@ public:
     CheckList() = default;
     ~CheckList() = default;
 
-    CheckListTypes::IDType index(const CheckListTypes::string caption, const bool checked) const;
-    CheckListTypes::IDType index(const CheckListTask& task) const;
+    using ContainerType = std::map<int, CheckListTask>;
+    using string = std::string;
+
+    int index(const string caption, const bool checked) const;
+    int index(const CheckListTask& task) const;
 
     std::size_t count() const { return this->m_data.size(); }
 
-    CheckListTask& at(CheckListTypes::IDType idx) { return this->m_data.at(idx); }
-    const CheckListTask& at(CheckListTypes::IDType idx) const { return this->m_data.at(idx); }
+    CheckListTask& at(int idx) { return this->m_data.at(idx); }
+    const CheckListTask& at(int idx) const { return this->m_data.at(idx); }
 
-    void add(const CheckListTypes::IDType id, const CheckListTask& task);
-    void add(const CheckListTypes::IDType id, const CheckListTypes::string& caption, const bool checked = false);
+    void add(const int id, const CheckListTask& task);
+    void add(const int id, const string& caption, const bool checked = false);
 
-    // TODO: addReplace(IDType, CheckListTask)
+    // TODO: addReplace(int, CheckListTask)
 
-    CheckListTypes::dataType& data() { return this->m_data; }
-    const CheckListTypes::dataType& data() const { return this->m_data; }
+    ContainerType& data() { return this->m_data; }
+    const ContainerType& data() const { return this->m_data; }
 
-    CheckListTask pop(CheckListTypes::IDType idx);
+    CheckListTask pop(int idx);
 
-    void remove(CheckListTypes::IDType idx) { this->m_data.erase(idx); }
+    void remove(int idx) { this->m_data.erase(idx); }
 
-    CheckListTask& operator[](CheckListTypes::IDType idx) { return this->at(idx); }
-    const CheckListTask& operator[](CheckListTypes::IDType idx) const { return this->at(idx); }
+    CheckListTask& operator[](int idx) { return this->at(idx); }
+    const CheckListTask& operator[](int idx) const { return this->at(idx); }
 
     // TODO: range-based `for`
 
 private:
-    CheckListTypes::dataType m_data;
+    ContainerType m_data;
 };

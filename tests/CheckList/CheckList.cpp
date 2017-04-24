@@ -2,9 +2,9 @@
 // Licensed under the GPLv3 license as published by Free Software Foundation.
 // https://www.gnu.org/licenses/gpl-3.0-standalone.html
 
-#include "gtest/gtest.h"
-#include <stdexcept>
 #include "../../include/CheckList.h"
+#include "../../googletest/googletest/include/gtest/gtest.h"
+#include <stdexcept>
 
 TEST(CheckListTask, construct_and_destruct) {
     ASSERT_NO_THROW(CheckListTask("TestCase", true));
@@ -98,7 +98,7 @@ TEST(CheckList, index) {
 
 TEST(CheckList, data) {
     CheckList list;
-    CheckListTypes::dataType data;
+    CheckList::ContainerType data;
     list.add(0, "TestCase");
     ASSERT_NE(data, list.data());
     list.data() = data;
