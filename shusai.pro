@@ -6,7 +6,8 @@ CONFIG += c++11
 
 HEADERS += \
     include/event.h \
-    include/database.h
+    include/database.h \
+    include/oneinstancecheck.h
 
 SOURCES += src/main.cpp \
     src/event.cpp \
