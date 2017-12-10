@@ -1,37 +1,31 @@
-import QtQuick 2.7
-import QtQuick.Controls 2.0
-import QtQuick.Layouts 1.0
+import QtQuick 2.9
+import QtQuick.Controls 2.2
+import QtQuick.Layouts 1.3
 
 ApplicationWindow {
     visible: true
     width: 640
     height: 480
-    title: qsTr("Hello World")
+    title: qsTr("Shusai")
 
-    SwipeView {
-        id: swipeView
+    GridLayout{
+        rows: 2
+        columns: 2
         anchors.fill: parent
-        currentIndex: tabBar.currentIndex
+        flow:  width > height ? GridLayout.LeftToRight : GridLayout.TopToBottom
+        anchors.margins: 20
 
-        Page1 {
+        EventsList{
+            Layout.fillWidth: true
+            Layout.fillHeight: true
+        }
+        EventsCalendar{
+            Layout.fillWidth: true
+            Layout.fillHeight: true
         }
 
-        Page {
-            Label {
-                text: qsTr("Second page")
-                anchors.centerIn: parent
-            }
-        }
+
     }
 
-    footer: TabBar {
-        id: tabBar
-        currentIndex: swipeView.currentIndex
-        TabButton {
-            text: qsTr("First")
-        }
-        TabButton {
-            text: qsTr("Second")
-        }
-    }
+
 }
