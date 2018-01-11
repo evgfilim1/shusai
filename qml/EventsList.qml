@@ -4,8 +4,9 @@ import QtQuick.Layouts 1.3
 import QtQuick.Controls.Material 2.2
 
 Item {
-
+    property alias addButton: addBtn
     ListView {
+
         id: eventList
         anchors.fill: parent
         anchors.bottomMargin: 50
@@ -25,31 +26,72 @@ Item {
         }
         delegate: Rectangle {
             //            anchors.fill: parent
+            id: listDelegate
             width: parent.width
             height: 40
-            color: eventList.currentIndex == index ? Material.color(
-                                                         enumPrimary,
-                                                         Material.Shade400) : "transparent"
+            color: "transparent"
+            state: "nonHover"
+
             MouseArea {
+                id: mArea
                 anchors.fill: parent
+                hoverEnabled: true
+                cursorShape: Qt.PointingHandCursor
                 onClicked: {
+
+                }
+                onEntered: {
                     eventList.currentIndex = index
+                    parent.state = "hover"
+                }
+                onExited: {
+                    parent.state = "nonHover"
+                    eventList.currentIndex = -1
                 }
             }
 
             radius: 10
             Text {
+                id: listText
                 anchors.fill: parent
                 anchors.margins: 20
                 text: name
                 verticalAlignment: Text.AlignVCenter
-                color: eventList.currentIndex == index ? "white" : Material.color(
-                                                             enumAccent,
-                                                             Material.Shade700)
+                color: Material.color(enumAccent, Material.Shade700)
             }
+            transitions: Transition {
+                ColorAnimation {
+                    duration: 50
+                }
+            }
+            states: [
+                State {
+                    name: "hover"
+                    PropertyChanges {
+                        target: listDelegate
+                        color: Material.color(enumPrimary, Material.Shade400)
+                    }
+                    PropertyChanges {
+                        target: listText
+                        color: "white"
+                    }
+                },
+                State {
+                    name: "nonHover"
+                    PropertyChanges {
+                        target: listDelegate
+                        color: "transparent"
+                    }
+                    PropertyChanges {
+                        target: listText
+                        color: Material.color(enumPrimary, Material.Shade700)
+                    }
+                }
+            ]
         }
     }
     Button {
+        id: addBtn
         anchors.top: eventList.bottom
         anchors.bottom: parent.bottom
         width: parent.width

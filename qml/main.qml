@@ -25,6 +25,9 @@ ApplicationWindow {
         EventsList {
             Layout.fillWidth: true
             Layout.fillHeight: true
+            addButton.onClicked: {
+
+            }
         }
         EventsCalendar {
             Layout.fillWidth: true
