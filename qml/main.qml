@@ -6,7 +6,7 @@ import QtQuick.Controls.Material 2.2
 ApplicationWindow {
     visible: true
     width: 640
-    height: 480
+    height: 400
     title: qsTr("Shusai")
     property int enumPrimary: Material.Blue
     property int enumAccent: Material.DeepOrange
@@ -14,6 +14,7 @@ ApplicationWindow {
     Material.primary: Material.Blue
     Material.accent: Material.DeepOrange
 
+    color: "white"
     //    Material.background: Material.Yellow
     GridLayout {
         rows: 2

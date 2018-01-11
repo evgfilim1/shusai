@@ -61,6 +61,13 @@ Item {
                         text: "Декабрь"
                     }
                 }
+                Component.onCompleted: {
+                    var currentDate = new Date()
+                    currentIndex = currentDate.getMonth()
+                }
+                onCurrentIndexChanged: {
+                    grid.month = currentIndex
+                }
             }
             ComboBox {
                 id: comboYear
@@ -72,11 +79,17 @@ Item {
                     id: yearsList
                 }
                 Component.onCompleted: {
-                    for (var i = 2017; i < 2022; i++) {
+                    var currentDate = new Date()
+                    for (var i = currentDate.getFullYear(
+                             ) - 1; i < currentDate.getFullYear() + 4; i++) {
                         yearsList.append({
                                              text: i
                                          })
                     }
+                    currentIndex = 1
+                }
+                onCurrentTextChanged: {
+                    grid.year = comboYear.currentText
                 }
             }
 
