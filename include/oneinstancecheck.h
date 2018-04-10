@@ -1,3 +1,6 @@
+#ifndef ONEINSTANCECHECK_H
+#define ONEINSTANCECHECK_H
+
 #include <QSharedMemory>
 #include <QString>
 #pragma once
@@ -39,3 +42,4 @@ public:
         }
     }
 };
+#endif // ONEINSTANCECHECK_H

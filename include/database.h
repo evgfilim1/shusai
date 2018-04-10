@@ -1,5 +1,6 @@
 #ifndef DATABASE_H
 #define DATABASE_H
+
 #pragma once
 
 #include "include/event.h"
@@ -18,7 +19,7 @@ public:
 
 private:
     QSqlDatabase _db;
-    int version;
+    const int version = 1;
 
     bool createSchema();
     bool addTestData();
