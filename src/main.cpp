@@ -10,7 +10,7 @@
 
 int main(int argc, char* argv[])
 {
-    OneInstanceCheck checker("shusai-memory");
+    OneInstanceCheck checker(QStringLiteral("shusai-memory"));
     if (!checker.unique()) {
         qDebug() << "Only one instance of the app can be launched.";
         return 1;
@@ -22,7 +22,7 @@ int main(int argc, char* argv[])
     QGuiApplication app(argc, argv);
 
     QQmlApplicationEngine engine;
-    engine.load(QUrl(QLatin1String("qrc:/main.qml")));
+    engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
 
     return app.exec();
 }
